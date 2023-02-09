@@ -1,5 +1,5 @@
 import pytest
-
+import re
 BR_CODE = '55'
 
 class Zap:
@@ -7,37 +7,22 @@ class Zap:
         self.number = None
         if type(number) == str:
             self.number = number
+            self.converted_number = self.convert()
 
     def convert(self) -> str:
-
-        number_to_be_converted = str(self.number)
+        number_to_be_converted = self.number
         print(number_to_be_converted)
-        if ('(' or ')' in number_to_be_converted):
-            number_to_be_converted = number_to_be_converted.replace('(', '')
-            number_to_be_converted = number_to_be_converted.replace(')', '')
-        if '-' in number_to_be_converted:
-            number_to_be_converted = number_to_be_converted.replace('-', '')
-        if(' ' in number_to_be_converted):
-            number_to_be_converted = number_to_be_converted.replace(' ','')
+        # undesirable_chars = ['(',')','-',' ']
 
-        final_result = []
-
-        # testa no console 'a'.isdigit()
-        for char in number_to_be_converted:
-            print(char)
-            if char.isdigit():
-                final_result.append(char)
-
-        print(final_result)
-        final_result = ''.join(final_result)
+        digits = re.findall(r'\d+', number_to_be_converted)
+        final_result = ''.join(digits)
 
         if not final_result.startswith('55'):
-            final_result = BR_CODE+number_to_be_converted
+            final_result = BR_CODE+final_result
         print('>>>>')
         print(final_result)
 
         return final_result
-
 
 def test_instantiate_class():
     zap = Zap()
@@ -52,19 +37,17 @@ def test_pass_is_not_number():
     zap = Zap(number)
     assert zap.number != number
 
-def test_convert():
-    number = '(75) 99988 - 7654'
+@pytest.mark.parametrize(
+    'number,converted_number',[
+        ('(75) 99988 - 7654', '5575999887654'),
+        ('(75) 90000 - 0000', '5575900000000'),
+        ('123(**@#(!12930!', '5512312930'),
+        ('+55(75)3655-0000', '557536550000'),
+        ('asdf(75)981230000ert', '5575981230000')
+    ])
+def test_convert(number, converted_number):
     zap = Zap(number)
-    assert zap.convert() == '5575999887654'
-    number = '(75) 90000 - 0000'
-    zap = Zap(number)
-    assert zap.convert() == '5575900000000'
-    number = '123(**@#(!12930!'
-    zap = Zap(number)
-    assert zap.convert() == '5512312930'
-    number = '+55(75)3655-0000'
-    zap = Zap(number)
-    assert zap.convert() == '557536550000'  # ta me ouvindo?
+    assert zap.converted_number == converted_number
 
 if __name__ == '__main__':
     pytest.main(["-x", __file__])
