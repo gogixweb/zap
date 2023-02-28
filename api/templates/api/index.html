@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Meu Template</title>
+    <style>
+      body {
+        background-color: green;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      
+      .card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <form method="post" action="/">
+        <label for="url_input">Insira uma URL:</label>
+        <input type="text" id="url_input" name="url_input">
+        <input type="submit" id="submit-button" value="Enviar" name="user_input">
+      </form>
+    </div>
+    <script>
+      // const submitButton = document.getElementById('submit-button');
+      // const urlInput = document.getElementById('url-input');
+      
+      // submitButton.addEventListener('click', () => {
+      //   const url = urlInput.value;
+      //   // faça algo com a URL aqui
+      // });
+    </script>
+  </body>
+</html>
