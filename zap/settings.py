@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-1l8+u9b=@7c2&_4h*3$3x*14*jztr2q1%l7eae8t_8uemw^fnw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['zap-paste.fly.dev','127.0.0.1']
+ALLOWED_HOSTS = ['zap-paste.fly.dev','127.0.0.1', 'localhost']
 
 
 # Application definition
